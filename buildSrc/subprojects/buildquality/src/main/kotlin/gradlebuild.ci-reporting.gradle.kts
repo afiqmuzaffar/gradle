@@ -78,7 +78,7 @@ fun verifyTestFilesCleanup(failedTasks: List<Task>, tmpTestFiles: List<Pair<File
         return
     }
 
-    val testFilesToFail = tmpTestFiles.filter { reportOnlyProjects.contains(it.second) }
+    val testFilesToFail = tmpTestFiles.filter { !reportOnlyProjects.contains(it.second) }
     val testFilesToReport = tmpTestFiles.filter { reportOnlyProjects.contains(it.second) }
 
     if (testFilesToReport.isNotEmpty()) {
