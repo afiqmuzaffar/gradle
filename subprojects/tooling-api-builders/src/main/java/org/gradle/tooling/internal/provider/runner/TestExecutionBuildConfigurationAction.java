@@ -116,9 +116,6 @@ class TestExecutionBuildConfigurationAction implements BuildConfigurationAction 
     }
 
     private List<Test> configureBuildForTestTasks(GradleInternal gradle, TestExecutionRequestAction testExecutionRequest) {
-        if (true) {
-            throw new TestExecutionException(String.format("Exploring which test fails with wrong configureBuildForTestTasks"));
-        }
         final Collection<InternalTestDescriptor> testDescriptors = testExecutionRequest.getTestExecutionDescriptors();
 
         final List<String> testTaskPaths = org.gradle.util.CollectionUtils.collect(testDescriptors, new Transformer<String, InternalTestDescriptor>() {
@@ -147,6 +144,7 @@ class TestExecutionBuildConfigurationAction implements BuildConfigurationAction 
                         } else {
                             testTask.getFilter().includeTest(className, methodName);
                         }
+                        throw new TestExecutionException(String.format("Exploring which test fails with wrong configureBuildForTestTasks"));
                     }
                 }
                 testTasksToRun.add(testTask);
@@ -156,9 +154,6 @@ class TestExecutionBuildConfigurationAction implements BuildConfigurationAction 
     }
 
     private List<Test> configureBuildForInternalJvmTestRequest(GradleInternal gradle, TestExecutionRequestAction testExecutionRequest) {
-        if (true) {
-            throw new TestExecutionException(String.format("Exploring which test fails with wrong configureBuildForInternalJvmTestRequest"));
-        }
         final Collection<InternalJvmTestRequest> internalJvmTestRequests = testExecutionRequest.getInternalJvmTestRequests();
         if(internalJvmTestRequests.isEmpty()){
             return Collections.emptyList();
@@ -173,6 +168,7 @@ class TestExecutionBuildConfigurationAction implements BuildConfigurationAction 
                 for (InternalJvmTestRequest jvmTestRequest : internalJvmTestRequests) {
                     final TestFilter filter = testTask.getFilter();
                     filter.includeTest(jvmTestRequest.getClassName(), jvmTestRequest.getMethodName());
+                    throw new TestExecutionException(String.format("Exploring which test fails with wrong configureBuildForInternalJvmTestRequest"));
                 }
             }
             tasksToExecute.addAll(testTasks);
