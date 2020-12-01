@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import gradlebuild.cleanup.WhenNotEmpty
 
 plugins {
     id("gradlebuild.distribution.api-java")
@@ -92,10 +91,6 @@ strictCompile {
 
 classycle {
     excludePatterns.set(listOf("org/gradle/**"))
-}
-
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
 }
 
 integTest.usesSamples.set(true)

@@ -16,8 +16,6 @@
 
 import gradlebuild.basics.BuildEnvironment
 import gradlebuild.classycle.tasks.Classycle
-import gradlebuild.cleanup.WhenNotEmpty
-import gradlebuild.cleanup.extension.TestFileCleanUpExtension
 import gradlebuild.docs.FindBrokenInternalLinks
 import gradlebuild.integrationtests.tasks.DistributionTest
 import gradlebuild.performance.tasks.PerformanceTest
@@ -39,10 +37,10 @@ import java.util.zip.ZipOutputStream
  * Reducing the number of reports also makes it easier to find the important ones when analysing a failed build in
  * Team City.
  */
-subprojects.forEach {
-    // Configure the testFilesCleanup policy in each subproject's build script (This should be done directly in each subproject)
-    it.extensions.create<TestFileCleanUpExtension>("testFilesCleanup")
-}
+
+// projects for which we will not fail, but instead upload the files we failed to delete to TC
+// Ideally, the list will eventually be empty.
+val reportOnlyProjects = setOf<String>()
 
 if (BuildEnvironment.isCiServer) {
     gradle.buildFinished {
@@ -74,16 +72,14 @@ fun cleanUp(filesToCleanUp: List<File>) {
     }
 }
 
-fun getCleanUpPolicy(childProjectName: String) = childProjects[childProjectName]?.extensions?.getByType(TestFileCleanUpExtension::class.java)?.policy?.getOrElse(WhenNotEmpty.FAIL)
-
 fun verifyTestFilesCleanup(failedTasks: List<Task>, tmpTestFiles: List<Pair<File, String>>) {
     if (failedTasks.any { it is Test }) {
         println("Leftover files: $tmpTestFiles")
         return
     }
 
-    val testFilesToFail = tmpTestFiles.filter { getCleanUpPolicy(it.second) != WhenNotEmpty.REPORT }
-    val testFilesToReport = tmpTestFiles.filter { getCleanUpPolicy(it.second) == WhenNotEmpty.REPORT }
+    val testFilesToFail = tmpTestFiles.filter { reportOnlyProjects.contains(it.second) }
+    val testFilesToReport = tmpTestFiles.filter { reportOnlyProjects.contains(it.second) }
 
     if (testFilesToReport.isNotEmpty()) {
         println("Found non-empty test files dir:\n${testFilesToReport.joinToString("\n") { it.first.absolutePath }}")

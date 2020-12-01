@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import gradlebuild.cleanup.WhenNotEmpty
-
 plugins {
     id("gradlebuild.portalplugin.kotlin")
     id("gradlebuild.kotlin-dsl-plugin-extensions")
@@ -117,6 +115,3 @@ tasks.noDaemonIntegTest {
 }
 
 // TODO:kotlin-dsl
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
-}

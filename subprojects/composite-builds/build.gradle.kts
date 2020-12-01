@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import gradlebuild.cleanup.WhenNotEmpty
 plugins {
     id("gradlebuild.distribution.api-java")
 }
@@ -40,8 +38,4 @@ dependencies {
     integTestDistributionRuntimeOnly(project(":distributions-basics")) {
         because("Requires test-kit: 'java-gradle-plugin' is used in some integration tests which always adds the test-kit dependency.")
     }
-}
-
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
 }

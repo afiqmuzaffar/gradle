@@ -1,5 +1,3 @@
-import gradlebuild.cleanup.WhenNotEmpty
-
 plugins {
     id("gradlebuild.distribution.api-java")
     id("gradlebuild.launchable-jar")
@@ -76,10 +74,6 @@ dependencies {
 
 strictCompile {
     ignoreRawTypes() // raw types used in public API
-}
-
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
 }
 
 // Needed for testing debug command line option (JDWPUtil) - 'CommandLineIntegrationSpec.can debug with org.gradle.debug=true'

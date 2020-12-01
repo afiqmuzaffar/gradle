@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import gradlebuild.cleanup.WhenNotEmpty
-
 plugins {
     id("gradlebuild.distribution.implementation-java")
 }
@@ -112,10 +110,6 @@ dependencies {
 
 classycle {
     excludePatterns.set(listOf("org/gradle/**"))
-}
-
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
 }
 
 tasks.clean {

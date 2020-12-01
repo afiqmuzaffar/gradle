@@ -1,5 +1,3 @@
-import gradlebuild.cleanup.WhenNotEmpty
-
 /*
  * Copyright 2014 the original author or authors.
  *
@@ -40,9 +38,5 @@ dependencies {
     integTestDistributionRuntimeOnly(project(":distributions-basics")) {
         because("Requires test-kit: 'java-gradle-plugin' is used in integration tests which always adds the test-kit dependency.")
     }
-}
-
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
 }
 

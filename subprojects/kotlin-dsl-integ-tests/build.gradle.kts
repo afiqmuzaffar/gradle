@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import gradlebuild.cleanup.WhenNotEmpty
-
 plugins {
     id("gradlebuild.internal.kotlin")
 }
@@ -70,8 +68,4 @@ tasks {
     sourceSets.integTest.get().output.dir(
         writeFuturePluginVersions.map { it.outputs.files.singleFile.parentFile }
     )
-}
-
-testFilesCleanup {
-    policy.set(WhenNotEmpty.REPORT)
 }
