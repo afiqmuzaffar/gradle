@@ -40,7 +40,19 @@ import java.util.zip.ZipOutputStream
 
 // projects for which we will not fail, but instead upload the files we failed to delete to TC
 // Ideally, the list will eventually be empty.
-val reportOnlyProjects = setOf<String>()
+val reportOnlyProjects = setOf(
+    "dependency-management",
+    "launcher",
+    "kotlin-dsl",
+    "kotlin-dsl-plugins",
+    "kotlin-dsl-integ-tests",
+    "integ-test",
+    "composite-builds",
+    "plugins",
+    "plugin-use",
+    "tooling-api",
+    "core"
+)
 
 if (BuildEnvironment.isCiServer) {
     gradle.buildFinished {
