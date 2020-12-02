@@ -48,8 +48,8 @@ class FunctionalTest(
             listOf(""""-PtestJavaHome=${testCoverage.os.javaHome(testCoverage.testJvmVersion, testCoverage.vendor)}"""") +
                 buildScanTags.map { buildScanTag(it) } +
                 buildScanValues.map { buildScanCustomValue(it.key, it.value) } +
-                if (enableTestDistribution) "-DenableTestDistribution=true -Dscan.tag.test-distribution -Dgradle.enterprise.url=https://e.grdev.net" else "" +
-                    extraParameters
+                "-DenableTestDistribution=%enableTestDistribution%" +
+                extraParameters
             ).filter { it.isNotBlank() }.joinToString(separator = " "),
         timeout = testCoverage.testType.timeout,
         extraSteps = extraBuildSteps,

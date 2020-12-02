@@ -221,6 +221,7 @@ fun configureTests() {
         }
 
         if (project.testDistributionEnabled()) {
+            println("Test distribution has been enabled for $testName")
             useJUnitPlatform()
             distribution {
                 maxLocalExecutors.set(0)
