@@ -528,6 +528,9 @@ public class JavaExec extends ConventionTask implements JavaExecSpec {
      */
     @Input
     public JavaVersion getJavaVersion() {
+        if (getJavaLauncher().isPresent()) {
+            return JavaVersion.toVersion(getJavaLauncher().get().getMetadata().getLanguageVersion());
+        }
         return getServices().get(JvmVersionDetector.class).getJavaVersion(getEffectiveExecutable());
     }
 
@@ -752,12 +755,12 @@ public class JavaExec extends ConventionTask implements JavaExecSpec {
      * @since 6.7
      */
     @Incubating
-    @Internal("getJavaVersion() is used as @Input")
+    @Nested
+    @Optional
     public Property<JavaLauncher> getJavaLauncher() {
         return javaLauncher;
     }
 
-    @Nullable
     private String getEffectiveExecutable() {
         if (javaLauncher.isPresent()) {
             return javaLauncher.get().getExecutablePath().toString();
