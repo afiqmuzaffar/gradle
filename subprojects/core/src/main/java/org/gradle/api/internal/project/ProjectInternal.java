@@ -48,7 +48,7 @@ import org.gradle.util.Path;
 
 import javax.annotation.Nullable;
 
-@UsedByScanPlugin //and test-retry-plugin
+@UsedByScanPlugin("scan, test-retry")
 public interface ProjectInternal extends Project, ProjectIdentifier, HasScriptServices, DomainObjectContext, DependencyMetaDataProvider, ModelRegistryScope, PluginAwareInternal {
 
     // These constants are defined here and not with the rest of their kind in HelpTasksPlugin because they are referenced
@@ -99,7 +99,7 @@ public interface ProjectInternal extends Project, ProjectIdentifier, HasScriptSe
 
     FileResolver getFileResolver();
 
-    @UsedByScanPlugin //and test-retry-plugin
+    @UsedByScanPlugin("scan, test-retry")
     ServiceRegistry getServices();
 
     ServiceRegistryFactory getServiceRegistryFactory();
