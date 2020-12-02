@@ -36,6 +36,11 @@ class DefaultJvmVersionDetectorTest extends Specification {
         detector.getJavaVersion(Jvm.current().getJavaExecutable().path) == JavaVersion.current()
     }
 
+    def "can determine version of java command without file extension"() {
+        expect:
+        detector.getJavaVersion(Jvm.current().getJavaExecutable().path.replace(".exe", "")) == JavaVersion.current()
+    }
+
     def "fails for invalid jvm"() {
         given:
         def cause = new NullPointerException("cause");
